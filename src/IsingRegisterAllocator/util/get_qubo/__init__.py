@@ -1,1 +1,1 @@
-from by_amplify import by_amplify
+from .by_amplify import by_amplify
