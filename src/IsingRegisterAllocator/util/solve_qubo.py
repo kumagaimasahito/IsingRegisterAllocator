@@ -14,7 +14,9 @@ def by_amplify(qubits, model, timeout=5000):
     q_values = decode_solution(qubits, values, 1)
     return np.where(np.array(q_values) == 1)[1]
 
-def main():
+
+
+def main1():
     import get_qubo
     list_dependent_variables = [
         [1, 2, 3],
@@ -31,5 +33,23 @@ def main():
     ans = by_amplify(response["qubits"], response["model"])
     print(ans)
 
+def main2():
+    import get_qubo
+    list_dependent_variables = [
+        [1, 2, 3],
+        [0, 2, 3, 4],
+        [0, 1, 3, 4],
+        [0, 1, 2, 4],
+        [1, 2, 3],
+        [6],
+        [5]
+    ]
+    num_registers = 4
+    allocation = {1: 2}
+
+    response = get_qubo.by_amplify_splitted(list_dependent_variables, num_registers, allocation)
+    ans = by_amplify(response["qubits"], response["model"])
+    print(ans)
+
 if __name__ == "__main__":
-    main()
+    main2()

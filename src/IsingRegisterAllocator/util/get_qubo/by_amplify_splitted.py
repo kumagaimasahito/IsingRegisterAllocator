@@ -1,7 +1,7 @@
 from amplify import BinaryPoly, gen_symbols, sum_poly, BinaryQuadraticModel
 from amplify.constraint import equal_to, penalty
 
-def by_amplify(list_dependent_variables, num_registers, allocation):
+def by_amplify_splitted(list_dependent_variables, num_registers, allocation):
     num_variables = len(list_dependent_variables)
     q = gen_symbols(BinaryPoly, num_variables, num_registers)
 
@@ -20,7 +20,19 @@ def by_amplify(list_dependent_variables, num_registers, allocation):
         for r in range(num_registers)
     ]
 
-    constraints = sum(const_onehot) + sum(const_spill)
+    # ある変数が割り当てられるレジスタがわかっている時，必ずそのレジスタに割り当てられるようにする制約
+    const_assign = [
+        penalty(q[i][r])
+        for i, x in allocation.items()
+        for r in range(num_registers)
+        if r != x
+    ]
+
+    constraints = sum(const_onehot)
+    if len(const_spill) != 0:
+        constraints += sum(const_spill)
+    if len(const_assign) != 0:
+        constraints += sum(const_assign)
     return {
         "qubits" : q,
         "model" : BinaryQuadraticModel(constraints)
