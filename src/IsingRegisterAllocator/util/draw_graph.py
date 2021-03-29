@@ -14,20 +14,43 @@ def draw_graph(list_dependent_variables, allocation=None):
         nx.draw_networkx(G, node_color = allocation)
     plt.show()
 
-def main():
-    list_dependent_variables = [
-        [1, 2, 3],
-        [0, 2, 3, 4],
-        [0, 1, 3, 4],
-        [0, 1, 2, 4],
-        [1, 2, 3],
-        [6],
-        [5]
-    ]
-    allocation = [1, 0, 2, 2, 1, 2, 1]
+# def main():
+#     list_dependent_variables = [
+#         [1, 2, 3],
+#         [0, 2, 3, 4],
+#         [0, 1, 3, 4],
+#         [0, 1, 2, 4],
+#         [1, 2, 3],
+#         [6],
+#         [5]
+#     ]
+#     allocation = [1, 0, 2, 2, 1, 2, 1]
 
-    draw_graph(list_dependent_variables, allocation)
-    # draw_graph(list_dependent_variables)
+#     draw_graph(list_dependent_variables, allocation)
+#     # draw_graph(list_dependent_variables)
+
+def main():
+    graph = [
+        [0,0,0,1,0,1,1,1,1,0,],
+        [0,0,0,0,0,1,1,0,0,0,],
+        [0,0,0,0,0,0,0,0,0,0,],
+        [1,0,0,0,1,0,0,1,1,0,],
+        [0,0,0,1,0,0,0,0,0,0,],
+        [1,1,0,0,0,0,1,0,0,0,],
+        [1,1,0,0,0,1,0,0,0,0,],
+        [1,0,0,1,0,0,0,0,0,0,],
+        [1,0,0,1,0,0,0,0,0,0,],
+        [0,0,0,0,0,0,0,0,0,0,],
+    ]
+    list_dependent_variables = [
+        [
+            i
+            for i, x in enumerate(g)
+            if x==1
+        ]
+        for g in graph
+    ]
+    draw_graph(list_dependent_variables)
 
 if __name__ == "__main__":
     main()
