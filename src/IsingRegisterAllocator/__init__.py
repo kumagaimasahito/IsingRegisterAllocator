@@ -1,2 +1,3 @@
-from .split_graph_coloring import split_graph_coloring
-from .allocate_unit import allocate_unit
+from .get_solution_splitted_algorithm import get_solution_splitted_algorithm
+from .get_solution_allocated_unit import get_solution_allocated_unit
+from. get_solution_limited_unit import get_solution_limited_unit

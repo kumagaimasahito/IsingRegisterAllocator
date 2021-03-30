@@ -1,11 +1,11 @@
-from IsingRegisterAllocator import split_graph_coloring
+from IsingRegisterAllocator import get_solution_splitted_algorithm
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 AMPLIFY_TOKEN = os.environ.get("AMPLIFY_TOKEN")
 
-def test_split_graph_coloring():
+def test_get_solution_splitted_algorithm():
     list_dependent_variables = [
         [1, 2, 3],
         [0, 2, 3, 4],
@@ -20,4 +20,4 @@ def test_split_graph_coloring():
     chunk_size = 3
     overlap_size = 1
 
-    solution = split_graph_coloring(list_dependent_variables, num_registers, chunk_size, overlap_size, AMPLIFY_TOKEN)
+    solution = get_solution_splitted_algorithm(list_dependent_variables, num_registers, chunk_size, overlap_size, AMPLIFY_TOKEN)

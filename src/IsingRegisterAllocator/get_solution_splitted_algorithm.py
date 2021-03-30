@@ -1,7 +1,7 @@
 from .util import get_qubo
 from .util.solve_qubo import by_amplify as solve_qubo
 
-def split_graph_coloring(list_dependent_variables, num_registers, chunk_size, overlap_size, token):
+def get_solution_splitted_algorithm(list_dependent_variables, num_registers, chunk_size, overlap_size, token):
     num_variables = len(list_dependent_variables)
 
     def resize_chunk(list_dependent_variables, dep, arr):

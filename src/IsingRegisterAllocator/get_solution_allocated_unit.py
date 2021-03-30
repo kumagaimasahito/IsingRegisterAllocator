@@ -1,7 +1,7 @@
 from .util import split_unit, get_qubo
 from .util.solve_qubo import by_amplify as solve_qubo
 
-def allocate_unit(interference, register_unit, unit_size, token):
+def get_solution_allocated_unit(interference, register_unit, unit_size, token):
     interference_unit = split_unit(interference, register_unit)
     index_table = []
     ans_table = []
