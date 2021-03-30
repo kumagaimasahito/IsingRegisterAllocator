@@ -6,7 +6,7 @@ import os
 load_dotenv()
 AMPLIFY_TOKEN = os.environ.get("AMPLIFY_TOKEN")
 
-def test_util_solve_qubo():
+def test_util_solve_qubo_splitted():
     list_dependent_variables = [
         [1, 2, 3],
         [0, 2, 3, 4],
@@ -16,7 +16,8 @@ def test_util_solve_qubo():
         [6],
         [5]
     ]
-    num_registers = 3
+    num_registers = 4
+    allocation = {1: 2}
 
-    response = get_qubo.by_amplify(list_dependent_variables, num_registers)
+    response = get_qubo.by_amplify_splitted(list_dependent_variables, num_registers, allocation)
     ans = solve_qubo.by_amplify(response["qubits"], response["model"], AMPLIFY_TOKEN)

@@ -1,4 +1,4 @@
-def convert_interference(path)
+def convert_interference(path):
     f = open(path)
     data = f.read()
     list_data = eval(data)

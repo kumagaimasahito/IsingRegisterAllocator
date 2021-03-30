@@ -1,7 +1,7 @@
-from util import get_qubo
-from util.solve_qubo import by_amplify as solve_qubo
+from .util import get_qubo
+from .util.solve_qubo import by_amplify as solve_qubo
 
-def split_graph_coloring(list_dependent_variables, num_registers, chunk_size, overlap_size):
+def split_graph_coloring(list_dependent_variables, num_registers, chunk_size, overlap_size, token):
     num_variables = len(list_dependent_variables)
 
     def resize_chunk(list_dependent_variables, dep, arr):
@@ -28,7 +28,7 @@ def split_graph_coloring(list_dependent_variables, num_registers, chunk_size, ov
     arr = dep+chunk_size if dep+chunk_size <= num_variables else num_variables
     list_chunk_resized = resize_chunk(list_dependent_variables, dep, arr)
     response = get_qubo.by_amplify(list_chunk_resized, num_registers)
-    ans = solve_qubo(response["qubits"], response["model"])
+    ans = solve_qubo(response["qubits"], response["model"], token)
     solution.extend(ans)
     # print(solution)
 
@@ -38,29 +38,8 @@ def split_graph_coloring(list_dependent_variables, num_registers, chunk_size, ov
         list_chunk_resized = resize_chunk(list_dependent_variables, dep, arr)
         allocation = allocate_overlap(ans, chunk_size, overlap_size)
         response = get_qubo.by_amplify_splitted(list_chunk_resized, num_registers, allocation)
-        ans = solve_qubo(response["qubits"], response["model"])
+        ans = solve_qubo(response["qubits"], response["model"], token)
         solution.extend(ans[overlap_size:])
         # print(solution)
 
     return solution
-
-def main():
-    list_dependent_variables = [
-        [1, 2, 3],
-        [0, 2, 3, 4],
-        [0, 1, 3, 4],
-        [0, 1, 2, 4],
-        [1, 2, 3],
-        [6],
-        [5],
-        []
-    ]
-    num_registers = 4
-    chunk_size = 3
-    overlap_size = 1
-
-    solution = split_graph_coloring(list_dependent_variables, num_registers, chunk_size, overlap_size)
-    print(solution)
-
-if __name__ == "__main__":
-    main()
