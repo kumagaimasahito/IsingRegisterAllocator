@@ -1,4 +1,4 @@
-def out(path, convert=False):
+def load_out(path, convert=False):
     f = open(path)
     data = f.read()
     list_data = eval(data)
