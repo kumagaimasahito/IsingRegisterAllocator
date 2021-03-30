@@ -8,7 +8,6 @@ def load_allocatable_registers(path):
     data = data.replace("[$", "['$").replace(",$", "','$").replace(",]", "',]")
     data = data.replace("[M$", "['$").replace(",M$", "','$")
     dict_data = eval(data)
-    # print(dict_data)
 
     registers = []
     for list_reg in dict_data.values():
@@ -24,10 +23,9 @@ def load_allocatable_registers(path):
         ]
         for i, regs in dict_data.items()
     }
-    print(dict_data_converted)
 
     return {
-        "allocatable_registers" : dict_data_converted,
+        "limitation" : dict_data_converted,
         "to_index" : to_index,
         "to_string" : to_string
     }
