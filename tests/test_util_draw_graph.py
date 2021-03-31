@@ -22,3 +22,6 @@ def test_util_draw_graph():
         for g in graph
     ]
     draw_graph(list_dependent_variables)
+
+# if __name__ == "__main__":
+#     test_util_draw_graph()

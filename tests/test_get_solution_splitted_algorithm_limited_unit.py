@@ -44,7 +44,7 @@ def test_get_solution_splitted_algorithm_limited_unit():
     solution = get_solution_splitted_algorithm_limited_unit(
         interference, num_registers, limitation, chunk_size, overlap_size, AMPLIFY_TOKEN
     )
-    print(solution)
+#     print(solution)
 
-if __name__ == "__main__":
-    test_get_solution_splitted_algorithm_limited_unit()
+# if __name__ == "__main__":
+#     test_get_solution_splitted_algorithm_limited_unit()
