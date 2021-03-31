@@ -8,3 +8,5 @@
 干渉グラフ: interference_(mangle).out
 
 割り当て可能な物理レジスタ: allocatablereg_(mangle).out
+
+参考：https://saeki-ce.xsrv.jp/Cgengo.html
