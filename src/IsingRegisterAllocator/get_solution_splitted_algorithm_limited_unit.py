@@ -1,7 +1,7 @@
 from .util import get_qubo
 from .util.solve_qubo import by_amplify as solve_qubo
 
-def get_solution_splitted_algorithm(interference, num_registers, chunk_size, overlap_size, token):
+def get_solution_splitted_algorithm_limited_unit(interference, num_registers, limitation, chunk_size, overlap_size, token):
     num_variables = len(interference)
 
     def resize_chunk(interference, dep, arr):
@@ -22,21 +22,30 @@ def get_solution_splitted_algorithm(interference, num_registers, chunk_size, ove
             for i in range(chunk_size-overlap_size, chunk_size)
         }
 
+    def limit_chunk(limitation, dep, arr, allocation={}):
+        return {
+            i - dep : allocation[i] if i in allocation.keys() else limitation[i]
+            for i in range(dep, arr)
+        }
+
     solution = []
 
     dep = 0
     arr = dep+chunk_size if dep+chunk_size <= num_variables else num_variables
     list_chunk_resized = resize_chunk(interference, dep, arr)
-    response = get_qubo.by_amplify(list_chunk_resized, num_registers)
+    limitation_chunk = limit_chunk(limitation, dep, arr)
+    response = get_qubo.by_amplify_limited(list_chunk_resized, num_registers, limitation_chunk)
     ans = solve_qubo(response["qubits"], response["model"], token)
     solution.extend(ans)
 
     while arr < num_variables:
+        print(solution)
         dep = arr - overlap_size
         arr = dep+chunk_size if  dep+chunk_size <= num_variables else num_variables
         list_chunk_resized = resize_chunk(interference, dep, arr)
         allocation = allocate_overlap(ans, chunk_size, overlap_size)
-        response = get_qubo.by_amplify_splitted(list_chunk_resized, num_registers, allocation)
+        limitation_chunk = limit_chunk(limitation, dep, arr, allocation)
+        response = get_qubo.by_amplify_splitted(list_chunk_resized, num_registers, limitation_chunk)
         ans = solve_qubo(response["qubits"], response["model"], token)
         solution.extend(ans[overlap_size:])
 
