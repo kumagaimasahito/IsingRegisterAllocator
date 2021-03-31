@@ -2,6 +2,9 @@
 私たちは，量子アニーリングを用いてレジスタアロケーションを行う手法を提案します．
 提案手法はライブラリとして実装されており，インストールして誰でも試すことができます．
 
+説明については，スライド資料も合わせてご確認ください．
+https://github.com/kumagaimasahito/IsingRegisterAllocator/blob/main/Amplify%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3.pdf
+
 ## インストール
 ### 1. git clone
 ```
